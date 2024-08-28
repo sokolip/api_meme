@@ -38,14 +38,3 @@ class Endpoint:
             return headers
         else:
             print('Token not found')
-
-
-
-# current_token = Endpoint()
-# current_token.create_authorization_token()
-# current_token = current_token.check_authorization_token()
-# print(current_token)
-
-    # @allure.step('Check that response is 200')
-    # def check_than_status_is_200(self):
-    #     assert self.response.status_code == 200
