@@ -7,10 +7,17 @@ import allure
 class GetMemeById(Endpoint):
     @allure.step('Get mem by id')
     def get_meme_by_id(self, headers):
-        headers = Endpoint.check_authorization_token(self)
         id_meme = random.choice([4, 13, 19])
         self.response = requests.get(
             url=f'{self.url}/meme/{id_meme}',
             headers=headers
         )
         assert self.response.status_code == 200, 'Wrong ID meme'
+
+    @allure.step('Get meme when id is list')
+    def get_meme_id_is_list(self, id_meme, headers):
+        self.response = requests.get(
+            url=f'{self.url}/meme/{id_meme}',
+            headers=headers
+        )
+        assert self.response.status_code == 404, 'ID finded'

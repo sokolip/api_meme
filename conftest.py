@@ -16,6 +16,59 @@ def set_headers():
 
 
 @pytest.fixture()
+def new_id_meme(set_headers):
+    url = 'http://167.172.172.115:52355/meme'
+    response = requests.post(
+        url=url,
+        json={
+            "text": "Bug on backend and frontend",
+            "url": "https://images.app.goo.gl/39XELXiPgkeZwAty7",
+            "tags": ["QA", "backend", 'frontend'],
+            "info": {
+                "colors":[
+                    "white",
+                    "black"
+                ],
+                "objects": [
+                    "picture",
+                    "text"
+                ]
+            }
+        },
+        headers=set_headers)
+    assert response.status_code == 200, 'Meme does not created'
+    response = response.json()
+    new_id_meme = response['id']
+    print(f'Created new meme with id = {new_id_meme}')
+    return new_id_meme
+
+
+@pytest.fixture()
+def delete_meme_by_id(new_id_meme, set_headers):
+    def _delete_meme(id_meme):
+        url = 'http://167.172.172.115:52355/meme'
+        delete_response = requests.delete(
+            url=f'{url}/{id_meme}',
+            headers=set_headers
+        )
+        assert delete_response.status_code == 200, f'Meme with id = {id_meme} not deleted'
+        print(f'Meme with id = {id_meme} deleted')
+    return _delete_meme
+
+
+@pytest.fixture()
+def get_deleted_meme(new_id_meme, set_headers):
+    def _get_meme(id_meme):
+        url = 'http://167.172.172.115:52355/meme'
+        response = requests.get(
+            url=f'{url}/{id_meme}',
+            headers=set_headers
+        )
+        assert response.status_code == 404, 'Meme did not deleted '
+    return _get_meme
+
+
+@pytest.fixture()
 def get_all_meme_endpoint(set_headers):
     return GetAllMeme()
 
@@ -31,7 +84,7 @@ def get_meme_by_id_endpoint(set_headers):
 
 
 @pytest.fixture()
-def put_meme_endpoint(set_headers):
+def put_meme_endpoint(new_id_meme, set_headers):
     return PutMeme()
 
 

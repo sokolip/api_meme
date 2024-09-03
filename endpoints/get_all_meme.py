@@ -12,7 +12,6 @@ class GetAllMeme(Endpoint):
         )
         assert self.response.status_code == 200, 'Response status code is not 200'
 
-
     @allure.step('Unauthorize requests')
     def get_all_meme_with_wrong_token(self, wrong_headers):
         self.response = requests.get(

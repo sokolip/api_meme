@@ -38,3 +38,6 @@ class Endpoint:
             return headers
         else:
             print('Token not found')
+
+    def check_that_status_is_200(self):
+        assert self.response.status_code == 200
