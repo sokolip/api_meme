@@ -27,3 +27,4 @@ class PostMeme(Endpoint):
             headers=headers
         )
         assert self.response.status_code == 400, 'Wrong status code, when post new meme with wrong data'
+
