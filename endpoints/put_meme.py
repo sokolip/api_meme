@@ -18,7 +18,7 @@ class PutMeme(Endpoint):
                     "black",
                     "grey"
                 ],
-                "objects":[
+                "objects": [
                     "picture",
                     "foto",
                     "text"
@@ -26,7 +26,10 @@ class PutMeme(Endpoint):
             }
         }
         self.response = requests.put(
-            url=f'{self.url}/put/meme/{id_meme}',
+            url=f'{self.url}/meme/{id_meme}',
             json=body,
             headers=headers
         )
+        assert self.response.status_code == 200
+        response = self.response.json()
+        assert response['text'] == body['text']

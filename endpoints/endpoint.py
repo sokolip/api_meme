@@ -39,5 +39,12 @@ class Endpoint:
         else:
             print('Token not found')
 
-    def check_that_status_is_200(self):
-        assert self.response.status_code == 200
+
+    def check_that_status_is_401(self):
+        assert self.response.status_code == 401
+
+    def check_that_status_code_is_400(self):
+        assert self.response.status_code == 400
+
+    def check_that_status_code_is_404(self):
+        assert self.response.status_code == 404

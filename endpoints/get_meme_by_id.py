@@ -12,7 +12,8 @@ class GetMemeById(Endpoint):
             url=f'{self.url}/meme/{id_meme}',
             headers=headers
         )
-        assert self.response.status_code == 200, 'Wrong ID meme'
+        response = self.response.json()
+        assert response['id'] == id_meme
 
     @allure.step('Get meme when id is list')
     def get_meme_id_is_list(self, id_meme, headers):

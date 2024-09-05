@@ -16,6 +16,7 @@ class PostMeme(Endpoint):
         response = self.response.json()
         id_meme = response['id']
         print(f'Created new meme with id = {id_meme}')
+        assert response['text'] == body['text']
         return id_meme
 
     @allure.step('Invalid data')
@@ -26,3 +27,4 @@ class PostMeme(Endpoint):
             headers=headers
         )
         assert self.response.status_code == 400, 'Wrong status code, when post new meme with wrong data'
+
