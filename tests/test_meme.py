@@ -52,7 +52,28 @@ def test_get_meme_by_id(get_meme_by_id_endpoint, set_headers):
 
 def test_put_meme(put_meme_endpoint, new_id_meme, set_headers):
     id_meme = new_id_meme
-    put_meme_endpoint.put_meme(id_meme=id_meme, headers=set_headers)
+    put_meme_endpoint.put_meme(
+        id_meme=id_meme,
+        headers=set_headers,
+        body={
+            "id": id_meme,
+            "text": "Zero bug policy",
+            "url": "https://memchik.ru/show/5b056ae6b1c7e33a545d79db?page=5",
+            "tags": ["QA", "BLM", "Picture"],
+            "info": {
+                "colors": [
+                    "white",
+                    "black",
+                    "grey"
+                ],
+                "objects": [
+                    "picture",
+                    "foto",
+                    "text"
+                ]
+            }
+        }
+        )
 
 
 def test_delete_meme(delete_meme_endpoint, new_id_meme, set_headers):
