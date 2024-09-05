@@ -40,7 +40,12 @@ def new_id_meme(set_headers):
     response = response.json()
     new_id_meme = response['id']
     print(f'Created new meme with id = {new_id_meme}')
-    return new_id_meme
+    yield new_id_meme
+    requests.delete(
+        url=f'{url}/{new_id_meme}',
+        headers=set_headers
+    )
+    print(f'Meme with id = {new_id_meme} deleted')
 
 
 @pytest.fixture()

@@ -54,8 +54,6 @@ def test_get_meme_by_id(get_meme_by_id_endpoint, set_headers):
 def test_put_meme(put_meme_endpoint, new_id_meme, set_headers, delete_meme_by_id, get_deleted_meme):
     id_meme = new_id_meme
     put_meme_endpoint.put_meme(id_meme=id_meme, headers=set_headers)
-    delete_meme_by_id(id_meme=id_meme)
-    get_deleted_meme(id_meme=id_meme)
 
 
 def test_delete_meme(delete_meme_endpoint, new_id_meme, set_headers, get_deleted_meme):
