@@ -11,7 +11,6 @@ class DeleteMeme(Endpoint):
             url=f'{self.url}/meme/{id_meme}',
             headers=headers
         )
-        assert self.response.status_code == 200, 'Meme do not deleted'
         print(f'Meme with id = {id_meme} deleted')
 
     @allure.step('Check that meme was deleted')

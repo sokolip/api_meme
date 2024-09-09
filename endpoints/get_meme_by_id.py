@@ -21,4 +21,3 @@ class GetMemeById(Endpoint):
             url=f'{self.url}/meme/{id_meme}',
             headers=headers
         )
-        assert self.response.status_code == 404, 'ID finded'

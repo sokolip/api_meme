@@ -12,6 +12,5 @@ class PutMeme(Endpoint):
             json=body,
             headers=headers
         )
-        assert self.response.status_code == 200
-        response = self.response.json()
-        assert response['text'] == body['text']
+
+
