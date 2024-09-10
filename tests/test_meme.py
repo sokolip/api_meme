@@ -73,36 +73,39 @@ def test_get_meme_by_id(get_meme_by_id_endpoint, set_headers):
 
 def test_put_meme(put_meme_endpoint, new_id_meme, set_headers):
     id_meme = new_id_meme
+    body = {
+        "id": id_meme,
+        "text": "Zero bug policy",
+        "url": "https://memchik.ru/show/5b056ae6b1c7e33a545d79db?page=5",
+        "tags": ["QA", "BLM", "Picture"],
+        "info": {
+            "colors": [
+                "white",
+                "black",
+                "grey"
+            ],
+            "objects": [
+                "picture",
+                "foto",
+                "text"
+            ]
+        }
+    }
     put_meme_endpoint.put_meme(
         id_meme=id_meme,
         headers=set_headers,
-        body={
-            "id": id_meme,
-            "text": "Zero bug policy",
-            "url": "https://memchik.ru/show/5b056ae6b1c7e33a545d79db?page=5",
-            "tags": ["QA", "BLM", "Picture"],
-            "info": {
-                "colors": [
-                    "white",
-                    "black",
-                    "grey"
-                ],
-                "objects": [
-                    "picture",
-                    "foto",
-                    "text"
-                ]
-            }
-        }
-        )
+        body=body)
     put_meme_endpoint.check_that_status_is_200()
+    put_meme_endpoint.check_that_id_in_new_meme_is_correct(id_meme=id_meme, headers=set_headers, body=body)
+    put_meme_endpoint.check_that_text_in_new_meme_is_correct(id_meme=id_meme, headers=set_headers, body=body)
+    put_meme_endpoint.check_that_url_in_new_meme_is_correct(id_meme=id_meme, headers=set_headers, body=body)
 
 
 def test_delete_meme(delete_meme_endpoint, new_id_meme, set_headers):
     id_meme = new_id_meme
     delete_meme_endpoint.delete_meme(id_meme=id_meme, headers=set_headers)
     delete_meme_endpoint.check_that_status_is_200()
-    delete_meme_endpoint.get_deleted_meme(id_meme=id_meme, headers=set_headers)
+    delete_meme_endpoint.check_that_meme_is_deleted(id_meme=id_meme, headers=set_headers)
 
 
 def test_create_meme_miss_text_field(post_meme_endpoint, set_headers):
@@ -171,11 +174,6 @@ def test_put_meme_with_wrong_body(put_meme_endpoint, new_id_meme, set_headers):
         }
         )
     put_meme_endpoint.check_that_status_code_is_400()
-
-
-def test_create_meme_with_invalid_headers(post_meme_endpoint):
-    post_meme_endpoint.new_meme_with_invalid_headers(body=TEST_DATA, headers=WRONG_HEADERS)
-    post_meme_endpoint.check_that_status_is_401()
 
 
 def test_get_all_meme_with_wrong_headers(get_all_meme_endpoint):

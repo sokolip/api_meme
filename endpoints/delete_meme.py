@@ -14,7 +14,7 @@ class DeleteMeme(Endpoint):
         print(f'Meme with id = {id_meme} deleted')
 
     @allure.step('Check that meme was deleted')
-    def get_deleted_meme(self, id_meme, headers):
+    def check_that_meme_is_deleted(self, id_meme, headers):
         url = 'http://167.172.172.115:52355/meme'
         response = requests.get(
             url=f'{url}/{id_meme}',
